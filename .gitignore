@@ -155,8 +155,6 @@ cython_debug/
 
 __init__.py
 output.txt
-custom_data/
-!custom_data/.gitkeep
+custom_data/blocks.json
 data/backup_sounds_data.json
-vanilla_data/
-!vanilla_data/.gitkeep
+vanilla_data/blocks.json
