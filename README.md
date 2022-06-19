@@ -6,6 +6,7 @@ Generation is based on blocks.json file, blocks are sorted by their sounds. Note
 # How to use
 
 Run the script and type options. You can put custom blocks.json file into `custom_data` folder. Result will be written in output.txt file.
+Note: when creating pickaxe you need to remove some blocks, like obsidian by hand if you don't want your pickaxe mine it.
 
 # Data update
 
