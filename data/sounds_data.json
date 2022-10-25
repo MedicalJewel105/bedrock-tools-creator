@@ -5,7 +5,9 @@
         "ladder",
         "scaffolding",
         "stem",
-        "wood"
+        "wood",
+        "fungus",
+        "mangrove_roots"
     ],
     "axe_exclude": [
         "beetroot",
@@ -65,7 +67,8 @@
         "sand",
         "snow",
         "soul_sand",
-        "soul_soil"
+        "soul_soil",
+        "muddy_mangrove_roots"
     ],
     "shovel_exclude": [
         "carrots",
@@ -111,7 +114,8 @@
         "sculk_vein",
         "shroomlight",
         "sweet_berry_bush",
-        "vines"
+        "vines",
+        "froglight"
     ],
     "hoe_exclude": [
         "black_candle_cake",

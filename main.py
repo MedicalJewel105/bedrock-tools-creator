@@ -1,11 +1,11 @@
 import jsonc_decoder
 import json
-import os
+from os import path
 
 
 print('Welcome to Bedrock Tools Generator!\nDeveloped by MJ105#0448.')
-if not os.path.exists('vanilla_data/blocks.json'):
-    print("Missing 'vanilla_data/blocks.json' file!")
+if not path.exists(path.join('vanilla_data', 'blocks.json')):
+    print(f"Missing '{path.join('vanilla_data', 'blocks.json')}' file!")
     exit()
 print('What do you want to create?\na - axe\np - pickaxe\nh - hoe\ns - shovel\nu - update options.')
 
@@ -51,12 +51,12 @@ def main():
 
 def create_component_data(tool: str, destroy_speed: int, on_dig_event: str):
     print(f'Creating {tool}...')
-    with open('data/sounds_data.json', 'r') as sounds_data_file:
+    with open(path.join('data', 'sounds_data.json'), 'r') as sounds_data_file:
         sounds_data = json.load(sounds_data_file)
-    with open('vanilla_data/blocks.json', 'r') as vanilla_blocks_file:
+    with open(path.join('vanilla_data', 'blocks.json'), 'r') as vanilla_blocks_file:
         vanilla_blocks_data = json.load(vanilla_blocks_file)
     try:
-        with open('custom_data/blocks.json') as custom_blocks_data_file:
+        with open(path.join('custom_data', 'blocks.json')) as custom_blocks_data_file:
             custom_blocks_data = json.load(custom_blocks_data_file, cls=jsonc_decoder.JSONCDecoder)
     except:
         custom_blocks_data = {}
@@ -94,12 +94,12 @@ def get_tool_name(tool: str) -> str:
     return tool
 
 def update_sound_group(tool: str):
-    with open('data/sounds_data.json', 'r') as sounds_data_file:
+    with open(path.join('data', 'sounds_data.json'), 'r') as sounds_data_file:
         sounds_data = json.load(sounds_data_file)
-    with open('data/backup_sounds_data.json', 'w') as backup_sounds_data_file:
+    with open(path.join('data', 'backup_sounds_data.json'), 'w') as backup_sounds_data_file:
         json.dump(sounds_data, backup_sounds_data_file, indent=4)
     sounds_data[tool] = []
-    with open('vanilla_data/blocks.json', 'r') as vrp_blocks_json:
+    with open(path.join('vanilla_data', 'blocks.json'), 'r') as vrp_blocks_json:
         vrp_blocks_data = json.load(vrp_blocks_json)
     sounds = []
     for block_data in vrp_blocks_data.values():
@@ -114,18 +114,18 @@ def update_sound_group(tool: str):
             add = input()
         if add == 'a':
             sounds_data[tool].append(sound)
-    with open('data/sounds_data.json', 'w') as sounds_data_file:
+    with open(path.join('data', 'sounds_data.json'), 'w') as sounds_data_file:
         json.dump(sounds_data, sounds_data_file, indent=4)
     print(f'Successfully updated {tool} sounds.')
 
 def update_exclude_group(tool: str):
     tool_group = tool + '_exclude'
-    with open('data/sounds_data.json', 'r') as sounds_data_file:
+    with open(path.join('data', 'sounds_data.json'), 'r') as sounds_data_file:
         sounds_data = json.load(sounds_data_file)
-    with open('data/backup_sounds_data.json', 'w') as backup_sounds_data_file:
+    with open(path.join('data', 'backup_sounds_data.json'), 'w') as backup_sounds_data_file:
         json.dump(sounds_data, backup_sounds_data_file, indent=4)
     sounds_data[tool_group] = []
-    with open('vanilla_data/blocks.json', 'r') as vrp_blocks_json:
+    with open(path.join('vanilla_data', 'blocks.json'), 'r') as vrp_blocks_json:
         vrp_blocks_data = json.load(vrp_blocks_json)
     print("Add blocks to exclude list via typing 'a', use 'x' to skip.")
     for block, block_data in vrp_blocks_data.items():
@@ -136,16 +136,16 @@ def update_exclude_group(tool: str):
                 add = input()
             if add == 'a':
                 sounds_data[tool_group].append(block)
-    with open('data/sounds_data.json', 'w') as sounds_data_file:
+    with open(path.join('data', 'sounds_data.json'), 'w') as sounds_data_file:
         json.dump(sounds_data, sounds_data_file, indent=4)
     print(f'Successfully updated {tool} exclude list.')
 
 def add_new_sounds():
-    with open('data/sounds_data.json', 'r') as sounds_data_file:
+    with open(path.join('data', 'sounds_data.json'), 'r') as sounds_data_file:
         sounds_data = json.load(sounds_data_file)
-    with open('data/backup_sounds_data.json', 'w') as backup_sounds_data_file:
+    with open(path.join('data', 'backup_sounds_data.json'), 'w') as backup_sounds_data_file:
         json.dump(sounds_data, backup_sounds_data_file, indent=4)
-    with open('vanilla_data/blocks.json', 'r') as vrp_blocks_json:
+    with open(path.join('vanilla_data', 'blocks.json'), 'r') as vrp_blocks_json:
         vrp_blocks_data = json.load(vrp_blocks_json)
     sounds = []
     for block_data in vrp_blocks_data.values():
@@ -168,19 +168,19 @@ def add_new_sounds():
                 tool = input()
             if tool != 'x':
                 sounds_data[get_tool_name(tool)].append(sound)
-    with open('data/sounds_data.json', 'w') as sounds_data_file:
+    with open(path.join('data', 'sounds_data.json'), 'w') as sounds_data_file:
         json.dump(sounds_data, sounds_data_file, indent=4)
     print('Sounds update completed.')
 
 
 def update_data():
-    with open('data/sounds_data.json', 'r') as sounds_data_file:
+    with open(path.join('data', 'sounds_data.json'), 'r') as sounds_data_file:
         sounds_data = json.load(sounds_data_file)
-    with open('data/backup_sounds_data.json', 'w') as backup_sounds_data_file:
+    with open(path.join('data', 'backup_sounds_data.json'), 'w') as backup_sounds_data_file:
         json.dump(sounds_data, backup_sounds_data_file, indent=4)
     for item in sounds_data:
         sounds_data[item] = []
-    with open('vanilla_data/blocks.json', 'r') as vrp_blocks_json:
+    with open(path.join('vanilla_data', 'blocks.json'), 'r') as vrp_blocks_json:
         vrp_blocks_data = json.load(vrp_blocks_json)
     sounds = []
     for block_data in vrp_blocks_data.values():
@@ -195,7 +195,7 @@ def update_data():
             tool = input()
         if tool != 'x':
             sounds_data[get_tool_name(tool)].append(sound)
-    with open('data/sounds_data.json', 'w') as sounds_data_file:
+    with open(path.join('data', 'sounds_data.json'), 'w') as sounds_data_file:
         json.dump(sounds_data, sounds_data_file, indent=4)
     print('Data update completed.')
 
