@@ -52,9 +52,10 @@ def main():
 def create_component_data(tool: str, destroy_speed: int, on_dig_event: str):
     print(f'Creating {tool}...')
     with open(sounds_data_path, 'r') as sounds_data_file:
-        sounds_data = json.load(sounds_data_file)
+        sounds_data = json.load(sounds_data_file, cls=jsonc_decoder.JSONCDecoder)
     with open(vanilla_blocks_path, 'r') as vanilla_blocks_file:
-        vanilla_blocks_data = json.load(vanilla_blocks_file)
+        vanilla_blocks_data = json.load(vanilla_blocks_file, cls=jsonc_decoder.JSONCDecoder)
+    blocks_data = vanilla_blocks_data
     if path.exists(path.join('custom_data', 'blocks.json')):
         try:
             with open(path.join('custom_data', 'blocks.json')) as custom_blocks_data_file:
@@ -62,7 +63,7 @@ def create_component_data(tool: str, destroy_speed: int, on_dig_event: str):
         except:
             print('Something is wrong with custom blocks.json')
             custom_blocks_data = {}
-    blocks_data = custom_blocks_data | vanilla_blocks_data
+        blocks_data |= custom_blocks_data
     digger_component = {'destroy_speeds':[],'on_dig':{}}
     digger_component['on_dig']['event'] = on_dig_event
     for block, block_data in blocks_data.items():
@@ -97,12 +98,12 @@ def get_tool_name(tool: str) -> str:
 
 def update_sound_group(tool: str):
     with open(sounds_data_path, 'r') as sounds_data_file:
-        sounds_data = json.load(sounds_data_file)
+        sounds_data = json.load(sounds_data_file, cls=jsonc_decoder.JSONCDecoder)
     with open(backup_file_path, 'w') as backup_sounds_data_file:
         json.dump(sounds_data, backup_sounds_data_file, indent=4)
     sounds_data[tool] = []
     with open(vanilla_blocks_path, 'r') as vrp_blocks_json:
-        vrp_blocks_data = json.load(vrp_blocks_json)
+        vrp_blocks_data = json.load(vrp_blocks_json, cls=jsonc_decoder.JSONCDecoder)
     sounds = []
     for block_data in vrp_blocks_data.values():
         if type(block_data) == dict and block_data.get('sound', '') not in sounds:
@@ -123,12 +124,12 @@ def update_sound_group(tool: str):
 def update_exclude_group(tool: str):
     tool_group = tool + '_exclude'
     with open(sounds_data_path, 'r') as sounds_data_file:
-        sounds_data = json.load(sounds_data_file)
+        sounds_data = json.load(sounds_data_file, cls=jsonc_decoder.JSONCDecoder)
     with open(backup_file_path, 'w') as backup_sounds_data_file:
         json.dump(sounds_data, backup_sounds_data_file, indent=4)
     sounds_data[tool_group] = []
     with open(vanilla_blocks_path, 'r') as vrp_blocks_json:
-        vrp_blocks_data = json.load(vrp_blocks_json)
+        vrp_blocks_data = json.load(vrp_blocks_json, cls=jsonc_decoder.JSONCDecoder)
     print("Add blocks to exclude list via typing 'a', use 'x' to skip.")
     for block, block_data in vrp_blocks_data.items():
         if type(block_data) == dict and block_data.get('sound', '') in sounds_data[tool]:
@@ -144,11 +145,11 @@ def update_exclude_group(tool: str):
 
 def add_new_sounds():
     with open(sounds_data_path, 'r') as sounds_data_file:
-        sounds_data = json.load(sounds_data_file)
+        sounds_data = json.load(sounds_data_file, cls=jsonc_decoder.JSONCDecoder)
     with open(backup_file_path, 'w') as backup_sounds_data_file:
         json.dump(sounds_data, backup_sounds_data_file, indent=4)
     with open(vanilla_blocks_path, 'r') as vrp_blocks_json:
-        vrp_blocks_data = json.load(vrp_blocks_json)
+        vrp_blocks_data = json.load(vrp_blocks_json, cls=jsonc_decoder.JSONCDecoder)
     sounds = []
     for block_data in vrp_blocks_data.values():
         if type(block_data) == dict and block_data.get('sound', '') not in sounds:
@@ -177,13 +178,13 @@ def add_new_sounds():
 
 def update_data():
     with open(sounds_data_path, 'r') as sounds_data_file:
-        sounds_data = json.load(sounds_data_file)
+        sounds_data = json.load(sounds_data_file, cls=jsonc_decoder.JSONCDecoder)
     with open(backup_file_path, 'w') as backup_sounds_data_file:
         json.dump(sounds_data, backup_sounds_data_file, indent=4)
     for item in sounds_data:
         sounds_data[item] = []
     with open(vanilla_blocks_path, 'r') as vrp_blocks_json:
-        vrp_blocks_data = json.load(vrp_blocks_json)
+        vrp_blocks_data = json.load(vrp_blocks_json, cls=jsonc_decoder.JSONCDecoder)
     sounds = []
     for block_data in vrp_blocks_data.values():
         if type(block_data) == dict and block_data.get('sound', '') not in sounds:
