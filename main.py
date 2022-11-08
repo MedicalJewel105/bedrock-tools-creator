@@ -42,7 +42,6 @@ def main():
             else:
                 print('Data update has been cancelled.')
                 main()
-        pass
     else:
         speed = int(input('Destroy speed: '))
         event = input('on_dig event: ')
