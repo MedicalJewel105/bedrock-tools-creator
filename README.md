@@ -10,4 +10,4 @@ Note: when creating pickaxe you need to remove some blocks, like obsidian by han
 
 # Data update
 
-Sometimes you'll need to update blocks.json file which is used by this script. It is located in `vanilla_data` folder. After that you'll need to run the script and choose 'add new sounds' in data options. When you update the data via options in script, you mostly generate new lists with data. If you made a mistake, don't worry. Usually there is a `backup_sounds_data.json` with previous settings. You can download vanilla resource pack [here](https://aka.ms/resourcepacktemplate).
+Sometimes you'll need to update blocks.json file which is used by this script. It is located in `vanilla_data` folder. After that you'll need to run the script and choose 'add new sounds' in data options. When you update the data via options in script, you mostly generate new lists with data. If you made a mistake, don't worry. Usually there is a `backup_sounds_data.json` with previous settings. You can download vanilla packs [here](https://github.com/Mojang/bedrock-samples/releases).
