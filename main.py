@@ -20,7 +20,7 @@ def main():
         while data_option not in range(1, 5):
             data_option = int(input())
         if data_option == 1:
-            print('Sounds of what tool you want to rset?\n[a, p, s, h]')
+            print('Sounds of what tool you want to reset?\n[a, p, s, h]')
             selected_tool = ''
             while selected_tool not in ['a', 'p', 's','h']:
                 selected_tool = input()
@@ -53,8 +53,7 @@ def create_component_data(tool: str, destroy_speed: int, on_dig_event: str):
     with open(sounds_data_path, 'r') as sounds_data_file:
         sounds_data = json.load(sounds_data_file, cls=jsonc_decoder.JSONCDecoder)
     with open(vanilla_blocks_path, 'r') as vanilla_blocks_file:
-        vanilla_blocks_data = json.load(vanilla_blocks_file, cls=jsonc_decoder.JSONCDecoder)
-    blocks_data = vanilla_blocks_data
+        blocks_data = json.load(vanilla_blocks_file, cls=jsonc_decoder.JSONCDecoder)
     if path.exists(path.join('custom_data', 'blocks.json')):
         try:
             with open(path.join('custom_data', 'blocks.json')) as custom_blocks_data_file:
@@ -96,6 +95,7 @@ def get_tool_name(tool: str) -> str:
     return tool
 
 def update_sound_group(tool: str):
+    """Update sounds of one tool"""
     with open(sounds_data_path, 'r') as sounds_data_file:
         sounds_data = json.load(sounds_data_file, cls=jsonc_decoder.JSONCDecoder)
     with open(backup_file_path, 'w') as backup_sounds_data_file:
@@ -121,6 +121,7 @@ def update_sound_group(tool: str):
     print(f'Successfully updated {tool} sounds.')
 
 def update_exclude_group(tool: str):
+    """Update excluded blocks for one tool"""
     tool_group = tool + '_exclude'
     with open(sounds_data_path, 'r') as sounds_data_file:
         sounds_data = json.load(sounds_data_file, cls=jsonc_decoder.JSONCDecoder)
@@ -143,6 +144,7 @@ def update_exclude_group(tool: str):
     print(f'Successfully updated {tool} exclude list.')
 
 def add_new_sounds():
+    """Sort new sounds to tools"""
     with open(sounds_data_path, 'r') as sounds_data_file:
         sounds_data = json.load(sounds_data_file, cls=jsonc_decoder.JSONCDecoder)
     with open(backup_file_path, 'w') as backup_sounds_data_file:
@@ -154,7 +156,7 @@ def add_new_sounds():
         if type(block_data) == dict and block_data.get('sound', '') not in sounds:
             sounds.append(block_data.get('sound', ''))
     sounds.remove('')
-    old_sounds = sounds_data['axe'] + sounds_data['pickaxe'] + sounds_data['shovel'] + sounds_data['hoe']
+    old_sounds = sounds_data['axe'] + sounds_data['pickaxe'] + sounds_data['shovel'] + sounds_data['hoe'] + sounds_data['skipped_sounds']
     new_sounds = []
     for i in sounds:
         if i not in old_sounds:
@@ -170,6 +172,8 @@ def add_new_sounds():
                 tool = input()
             if tool != 'x':
                 sounds_data[get_tool_name(tool)].append(sound)
+            else:
+                sounds_data['skipped_sounds'].append(sound)
     with open(sounds_data_path, 'w') as sounds_data_file:
         json.dump(sounds_data, sounds_data_file, indent=4)
     print('Sounds update completed.')
@@ -197,6 +201,8 @@ def update_data():
             tool = input()
         if tool != 'x':
             sounds_data[get_tool_name(tool)].append(sound)
+        else:
+            sounds_data['skipped_sounds'].append(sound)
     with open(sounds_data_path, 'w') as sounds_data_file:
         json.dump(sounds_data, sounds_data_file, indent=4)
     print('Data update completed.')

@@ -164,5 +164,18 @@
         "netherreactor",
         "repeating_command_block",
         "unpowered_comparator"
+    ],
+    "skipped_sounds": [
+        "candle",
+        "comparator",
+        "frog_spawn",
+        "glass",
+        "hanging_roots",
+        "honey_block",
+        "itemframe",
+        "nether_sprouts",
+        "roots",
+        "slime",
+        "spore_blossom"
     ]
 }
