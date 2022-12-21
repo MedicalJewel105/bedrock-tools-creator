@@ -3,6 +3,10 @@
 What is it? Bedrock tools generator is a tool used for easy creation of tools for Minecraft bedrock edition add-ons.
 Generation is based on blocks.json file, blocks are sorted by their sounds. Note that you update exclude/add data by hand. To do it, edit the `sounds_data.json` file in `data` folder.
 
+# Regolith
+
+Now [available](https://github.com/MedicalJewel105/regolilters/tree/main/digger) as [Regolith](https://bedrock-oss.github.io/regolith/) filter.
+
 # How to use
 
 Run the script and type options. You can put custom blocks.json file into `custom_data` folder. Result will be written in output.txt file.
