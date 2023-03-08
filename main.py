@@ -15,6 +15,9 @@ def main():
     while selected_mode not in ['a', 'p', 's', 'h', 'u']:
         selected_mode = input('Mode: ')
     if selected_mode == 'u':
+        print('Do you want to get the newest data from stable release? Y/n')
+        if input().lower() in ['y', 'yes']:
+            download_blocks(path.join('vanilla_data', 'blocks.json'))
         print('Data options.\nWhat you want to update?\n1 - tool sounds\n2 - exclude list\n3 - add new sounds\n4 - all data.')
         data_option = 0
         while data_option not in range(1, 5):
@@ -215,6 +218,22 @@ def launch() -> None:
         print(f"Missing '{vanilla_blocks_path}' file!")
         exit()
     main()
+
+def download_blocks(save_path: str) -> None:
+    download_url = 'https://raw.githubusercontent.com/Mojang/bedrock-samples/main/resource_pack/blocks.json'
+    try:
+        import requests
+        content = requests.get(download_url).json()
+        with open(save_path, 'w') as file:
+            json.dump(content, file)
+    except ModuleNotFoundError:
+        print('Install requests module for this option.')
+    except ConnectionError:
+        print('No Internet connection')
+    except json.decoder.JSONDecodeError:
+        print('Something is wrong with the link')
+    else:
+        print('Successfully updated.')
 
 if __name__ == '__main__':
     launch()
